@@ -20,7 +20,7 @@ func main() {
 		defer db.Close()
 	}
 	global.REDIS = initialize.InitRedis()
-	Router := initialize.Routers()
+	Router := initialize.InitRouters()
 	port := fmt.Sprintf(":%d", global.CONFIG.Server.Port)
 	s := initialize.InitServer(port, Router)
 	// 保证文本顺序输出

@@ -10,7 +10,7 @@ import (
 )
 
 func (b *BaseApi) Debug(c *gin.Context) {
-	response.OkWithDetailed("测试接口Debug", "验证码获取成功", c)
+	response.OkWithMessage("测试接口Debug", c)
 }
 
 // 当开启多服务器部署时，替换下面的配置，使用redis共享存储验证码

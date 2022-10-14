@@ -6,12 +6,16 @@ require (
 	github.com/fsnotify/fsnotify v1.5.4
 	github.com/gin-gonic/gin v1.8.1
 	github.com/go-redis/redis/v9 v9.0.0-beta.3
+	github.com/gofrs/uuid v4.3.0+incompatible
+	github.com/golang-jwt/jwt/v4 v4.4.2
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/spf13/viper v1.13.0
 	github.com/swaggo/files v0.0.0-20220728132757-551d4a08d97a
 	github.com/swaggo/gin-swagger v1.5.3
 	github.com/swaggo/swag v1.8.6
 	go.uber.org/zap v1.23.0
+	golang.org/x/crypto v0.0.0-20221010152910-d6f0a8c073c2
+	golang.org/x/sync v0.0.0-20220722155255-886fb9371eb4
 	gorm.io/driver/mysql v1.4.1
 	gorm.io/gorm v1.23.8
 )
@@ -53,7 +57,6 @@ require (
 	github.com/ugorji/go/codec v1.2.7 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
-	golang.org/x/crypto v0.0.0-20221010152910-d6f0a8c073c2 // indirect
 	golang.org/x/image v0.0.0-20190802002840-cff245a6509b // indirect
 	golang.org/x/net v0.0.0-20221004154528-8021a29435af // indirect
 	golang.org/x/sys v0.0.0-20221010170243-090e33056c14 // indirect

@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/mojocn/base64Captcha"
 	"go.uber.org/zap"
+	"server/config"
 	"server/global"
 	"time"
 )
@@ -11,7 +12,7 @@ import (
 func NewDefaultRedisStore() *RedisStore {
 	return &RedisStore{
 		Expiration: time.Second * 180,
-		PreKey:     "CAPTCHA_",
+		PreKey:     config.CAPTCHA_PREKEY,
 	}
 }
 

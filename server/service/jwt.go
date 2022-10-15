@@ -2,11 +2,10 @@ package service
 
 import (
 	"context"
+	"go.uber.org/zap"
 	"server/global"
 	"server/model/entity"
 	"server/utils"
-
-	"go.uber.org/zap"
 )
 
 type JwtService struct{}
@@ -61,7 +60,7 @@ func (jwtService *JwtService) GetRedisJWT(userName string) (redisJWT string, err
 //@param: jwt string, userName string
 //@return: err error
 
-func (jwtService *JwtService) SetRedisJWT(jwt string, userName string) (err error) {
+func (jwtService *JwtService) SetRedisJWT(userName string, jwt string) (err error) {
 	// 此处过期时间等于jwt过期时间
 	dr, err := utils.ParseDuration(global.CONFIG.JWT.ExpiresTime)
 	if err != nil {

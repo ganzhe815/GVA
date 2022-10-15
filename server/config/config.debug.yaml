@@ -1,7 +1,7 @@
 # 开发环境配置
 server:
   port: 8888
-  use-multipoint: false
+  use-multipoint: true
   iplimit-count: 15000
   iplimit-time: 3600
 

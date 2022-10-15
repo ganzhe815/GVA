@@ -1,7 +1,9 @@
 package v1
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/go-redis/redis/v9"
 	"go.uber.org/zap"
 	"server/global"
 	"server/model/entity"
@@ -34,11 +36,12 @@ func (b *BaseApi) Login(c *gin.Context) {
 		response.FailWithMessage("用户被禁止登录", c)
 		return
 	}
-
+	b.TokenNext(c, *user)
+	return
 }
 
 // TokenNext 登录以后签发jwt
-/*func (b *BaseApi) TokenNext(c *gin.Context, user entity.SysUser) {
+func (b *BaseApi) TokenNext(c *gin.Context, user entity.SysUser) {
 	j := &utils.JWT{SigningKey: []byte(global.CONFIG.JWT.SigningKey)} // 唯一签名
 	claims := j.CreateClaims(request.BaseClaims{
 		UUID:        user.UUID,
@@ -61,23 +64,24 @@ func (b *BaseApi) Login(c *gin.Context) {
 		}, "登录成功", c)
 		return
 	}
+	fmt.Println("token:" + token)
 
 	if jwtStr, err := jwtService.GetRedisJWT(user.Username); err == redis.Nil {
-		if err := jwtService.SetRedisJWT(token, user.Username); err != nil {
-			global.GVA_LOG.Error("设置登录状态失败!", zap.Error(err))
+		if err := jwtService.SetRedisJWT(user.Username, token); err != nil {
+			global.LOG.Error("设置登录状态失败!", zap.Error(err))
 			response.FailWithMessage("设置登录状态失败", c)
 			return
 		}
-		response.OkWithDetailed(systemRes.LoginResponse{
+		response.OkWithDetailed(response.LoginResponse{
 			User:      user,
 			Token:     token,
 			ExpiresAt: claims.StandardClaims.ExpiresAt * 1000,
 		}, "登录成功", c)
 	} else if err != nil {
-		global.GVA_LOG.Error("设置登录状态失败!", zap.Error(err))
+		global.LOG.Error("设置登录状态失败!", zap.Error(err))
 		response.FailWithMessage("设置登录状态失败", c)
 	} else {
-		var blackJWT system.JwtBlacklist
+		var blackJWT entity.JwtBlacklist
 		blackJWT.Jwt = jwtStr
 		if err := jwtService.JsonInBlacklist(blackJWT); err != nil {
 			response.FailWithMessage("jwt作废失败", c)
@@ -87,10 +91,10 @@ func (b *BaseApi) Login(c *gin.Context) {
 			response.FailWithMessage("设置登录状态失败", c)
 			return
 		}
-		response.OkWithDetailed(systemRes.LoginResponse{
+		response.OkWithDetailed(response.LoginResponse{
 			User:      user,
 			Token:     token,
 			ExpiresAt: claims.StandardClaims.ExpiresAt * 1000,
 		}, "登录成功", c)
 	}
-}*/
+}
